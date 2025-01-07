@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HW1</string>
+    <string-array name="days">
+        <item>7</item>
+        <item>15</item>
+        <item>31</item>
+    </string-array>
+</resources>

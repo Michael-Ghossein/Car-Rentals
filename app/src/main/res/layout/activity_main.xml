@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Millionaires     Car Rentals"
+        android:textSize="16pt"
+        android:gravity="center"
+        android:fontFamily="serif-monospace"
+        android:layout_marginTop="20dp"
+        />
+    
+    <ImageView
+        android:layout_width="900px"
+        android:layout_height="1200px"
+        android:layout_gravity="center"
+        android:src="@drawable/millionaires_car_rentals_logo"
+        />
+    
+    <TextView
+        android:layout_marginTop="-40dp"
+        android:layout_width="900px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="serif-monospace"
+        android:textSize="9pt"
+        android:textStyle="bold"
+        android:text="Rent your dream car today! Choose from a fleet of luxury vehicles and experience the road in style."
+        />
+
+    <Button
+        android:layout_marginTop="30dp"
+        android:layout_width="450px"
+        android:layout_height="wrap_content"
+        android:text="Choose"
+        android:fontFamily="serif-monospace"
+        android:backgroundTint="#1A1A1A"
+        android:layout_gravity="center"
+        android:onClick="choose"
+        />
+
+        
+
+</LinearLayout>
