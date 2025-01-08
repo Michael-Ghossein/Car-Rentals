@@ -1,5 +1,6 @@
 package com.example.hw1;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,4 +29,10 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, ChooseCars.class);
         startActivity(i);
     }
+
+    public void adminLogin(View view) {
+        Intent intent = new Intent(MainActivity.this, AdminLoginActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -1,18 +1,21 @@
 package com.example.hw1;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import android.content.ContentValues;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.ArrayList;
 
 public class ChooseCars extends AppCompatActivity {
     CheckBox Maserati, Rolls, Ferrari, Porche;
@@ -104,6 +107,16 @@ public class ChooseCars extends AppCompatActivity {
         finish();
     }
 
+    private String getCars() {
+        ArrayList<String> cars = new ArrayList<>();
+        if (Maserati.isChecked()) cars.add("Maserati Levante");
+        if (Rolls.isChecked()) cars.add("Rolls Royce Phantom");
+        if (Ferrari.isChecked()) cars.add("LaFerrari Aperta");
+        if (Porche.isChecked()) cars.add("Porsche 911 GT3 RS");
+        return cars.toString();
+    }
+
+
     public void rent(View view) {
         if (!Maserati.isChecked() && !Rolls.isChecked() && !Ferrari.isChecked() && !Porche.isChecked()) {
             Toast.makeText(this, "!You Should at Least \nSelect One Car to Rent!", Toast.LENGTH_LONG).show();
@@ -160,6 +173,22 @@ public class ChooseCars extends AppCompatActivity {
             if (Coverage.isChecked()) {
                 payment += 500;
             }
+        }
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_USER, "Default User"); // Replace with actual user data
+        values.put(DatabaseHelper.COLUMN_CARS, getCars()); // A helper method to get selected cars as a string
+        values.put(DatabaseHelper.COLUMN_DAYS, days);
+        values.put(DatabaseHelper.COLUMN_TOTAL_COST, payment);
+
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        long result = db.insert(DatabaseHelper.TABLE_RENTALS, null, values);
+        if (result == -1) {
+            Toast.makeText(this, "Error saving rental data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Rental data saved", Toast.LENGTH_SHORT).show();
         }
 
         Intent i = new Intent(ChooseCars.this, Payment.class);
