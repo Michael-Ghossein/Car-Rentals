@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etCarId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Car ID (For Update/Delete)" />
+
+    <EditText
+        android:id="@+id/etCarName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Car Name"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/etCarDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Car Description"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/etCarCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Car Rental Cost"
+        android:layout_marginTop="10dp" />
+</LinearLayout>
