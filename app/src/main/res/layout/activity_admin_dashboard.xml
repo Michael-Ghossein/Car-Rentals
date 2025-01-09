@@ -17,23 +17,23 @@
             android:layout_height="wrap_content"
             android:text="View Rental History" />
 
-        <Button
+        <!--Button
             android:id="@+id/btnAddCar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Car" />
+            android:text="Add Car" -->
 
-        <Button
+        <!--Button
             android:id="@+id/btnUpdateCar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Update Car" />
+            android:text="Update Car" -->
 
-        <Button
+        <!--Button
             android:id="@+id/btnDeleteCar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Delete Car" />
+            android:text="Delete Car" -->
     </LinearLayout>
 
     <ListView
