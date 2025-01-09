@@ -1,4 +1,4 @@
-package com.example.hw1;
+package com.example.exampractice;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,7 +31,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
             loadRentalHistory();
         });
 
-        findViewById(R.id.btnAddCar).setOnClickListener(v -> {
+        /*findViewById(R.id.btnAddCar).setOnClickListener(v -> {
             Log.d("AdminDashboardActivity", "Add Car Button Clicked");
             addCar();
         });
@@ -44,26 +44,101 @@ public class AdminDashboardActivity extends AppCompatActivity {
         findViewById(R.id.btnDeleteCar).setOnClickListener(v -> {
             Log.d("AdminDashboardActivity", "Delete Car Button Clicked");
             deleteCar();
+        });*/
+    }
+
+
+
+
+    /*private void addCar() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_car, null);
+        builder.setView(dialogView);
+
+        EditText etCarName = dialogView.findViewById(R.id.etCarName);
+        EditText etCarDescription = dialogView.findViewById(R.id.etCarDescription);
+        EditText etCarCost = dialogView.findViewById(R.id.etCarCost);
+
+        builder.setPositiveButton("Add", (dialog, which) -> {
+            String name = etCarName.getText().toString().trim();
+            String description = etCarDescription.getText().toString().trim();
+            String costStr = etCarCost.getText().toString().trim();
+
+            if (name.isEmpty() || description.isEmpty() || costStr.isEmpty()) {
+                Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            double cost = Double.parseDouble(costStr);
+            databaseHelper.insertCar(name, description, cost);
+            Toast.makeText(this, "Car added successfully.", Toast.LENGTH_SHORT).show();
+            loadCars();
         });
-    }
+
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }*/
+
+
+    /*private void updateCar() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_car_update, null);
+        builder.setView(dialogView);
+
+        EditText etCarId = dialogView.findViewById(R.id.etCarId);
+        EditText etCarName = dialogView.findViewById(R.id.etCarName);
+        EditText etCarDescription = dialogView.findViewById(R.id.etCarDescription);
+        EditText etCarCost = dialogView.findViewById(R.id.etCarCost);
+
+        builder.setPositiveButton("Update", (dialog, which) -> {
+            String idStr = etCarId.getText().toString().trim();
+            String name = etCarName.getText().toString().trim();
+            String description = etCarDescription.getText().toString().trim();
+            String costStr = etCarCost.getText().toString().trim();
+
+            if (idStr.isEmpty() || name.isEmpty() || description.isEmpty() || costStr.isEmpty()) {
+                Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int id = Integer.parseInt(idStr);
+            double cost = Double.parseDouble(costStr);
+            databaseHelper.updateCar(id, name, description, cost);
+            Toast.makeText(this, "Car updated successfully.", Toast.LENGTH_SHORT).show();
+            loadCars();
+        });
+
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }*/
 
 
 
+    /*private void deleteCar() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_car_delete, null);
+        builder.setView(dialogView);
 
-    private void addCar() {
-        // Logic to show a dialog and insert a new car into the database
-        showCarDialog("Add");
-    }
+        EditText etCarId = dialogView.findViewById(R.id.etCarId);
 
-    private void updateCar() {
-        // Logic to show a dialog and update car details in the database
-        showCarDialog("Update");
-    }
+        builder.setPositiveButton("Delete", (dialog, which) -> {
+            String idStr = etCarId.getText().toString().trim();
 
-    private void deleteCar() {
-        // Logic to show a dialog and delete a car from the database
-        showCarDialog("Delete");
-    }
+            if (idStr.isEmpty()) {
+                Toast.makeText(this, "Car ID is required.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int id = Integer.parseInt(idStr);
+            databaseHelper.deleteCar(id);
+            Toast.makeText(this, "Car deleted successfully.", Toast.LENGTH_SHORT).show();
+            loadCars();
+        });
+
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }*/
+
 
 
 
@@ -103,53 +178,6 @@ public class AdminDashboardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void showCarDialog(String action) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_car, null);
-        dialog.setView(dialogView);
-
-        EditText etCarName = dialogView.findViewById(R.id.etCarName);
-        EditText etCarDescription = dialogView.findViewById(R.id.etCarDescription);
-        EditText etCarCost = dialogView.findViewById(R.id.etCarCost);
-
-        dialog.setPositiveButton(action, (dialogInterface, i) -> {
-            String name = etCarName.getText().toString();
-            String description = etCarDescription.getText().toString();
-            String costStr = etCarCost.getText().toString();
-
-            if (name.isEmpty() || description.isEmpty() || costStr.isEmpty()) {
-                Toast.makeText(this, "All fields must be filled!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            double cost;
-            try {
-                cost = Double.parseDouble(costStr);
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Invalid price entered!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (action.equals("Add")) {
-                long result = databaseHelper.insertCar(name, description, cost);
-                if (result != -1) {
-                    Log.d("AdminDashboardActivity", "Car added: " + name);
-                    Toast.makeText(this, "Car added successfully", Toast.LENGTH_SHORT).show();
-                    loadCars();
-                }
-            } else {
-                    Toast.makeText(this, "Car added successfully", Toast.LENGTH_SHORT).show();
-                    loadCars();// Refresh car list
-                }
-
-
-
-        });
-
-
-        dialog.setNegativeButton("Cancel", null);
-        dialog.show();
-    }
 
 }
 

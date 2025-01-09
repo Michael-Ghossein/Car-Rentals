@@ -1,4 +1,4 @@
-package com.example.hw1;
+package com.example.exampractice;
 
 import android.content.Intent;
 import android.os.Bundle;

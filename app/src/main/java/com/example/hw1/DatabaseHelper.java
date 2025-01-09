@@ -1,4 +1,4 @@
-package com.example.hw1;
+package com.example.exampractice;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -31,26 +31,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        try {
-            String createRentalHistoryTable = "CREATE TABLE " + TABLE_RENTALS + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_USER + " TEXT, " +
-                    COLUMN_CARS + " TEXT, " +
-                    COLUMN_DAYS + " INTEGER, " +
-                    COLUMN_TOTAL_COST + " REAL)";
-            db.execSQL(createRentalHistoryTable);
+        db.execSQL("CREATE TABLE " + TABLE_CARS + " (" +
+                COLUMN_CAR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_CAR_NAME + " TEXT, " +
+                COLUMN_CAR_DESCRIPTION + " TEXT, " +
+                COLUMN_CAR_RENTAL_COST + " REAL)");
 
-            String createCarInventoryTable = "CREATE TABLE " + TABLE_CARS + " (" +
-                    COLUMN_CAR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CAR_NAME + " TEXT, " +
-                    COLUMN_CAR_DESCRIPTION + " TEXT, " +
-                    COLUMN_CAR_RENTAL_COST + " REAL)";
-            db.execSQL(createCarInventoryTable);
-
-            Log.d("DatabaseHelper", "Tables created successfully.");
-        } catch (Exception e) {
-            Log.e("DatabaseHelper", "Error creating tables: " + e.getMessage());
-        }
+        Log.d("DatabaseHelper", "Table created: " + TABLE_CARS);
     }
 
     /*@Override
@@ -73,47 +60,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop old tables (if any) and create them again
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RENTALS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARS); // Add this line to drop the missing table
-        onCreate(db); // Recreate all tables
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARS);
+        onCreate(db);
+    }
+
+
+
+    public void insertCar(String name, String description, double cost) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("INSERT INTO " + TABLE_CARS + " (car_name, car_description, car_rental_cost) VALUES('" +
+                name + "', '" + description + "', '" + cost + "')");
+        db.close();
+    }
+
+
+    public void updateCar(int id, String name, String description, double cost) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + TABLE_CARS + " SET car_name='" + name + "', car_description='" +
+                description + "', car_rental_cost='" + cost + "' WHERE car_id=" + id);
+        db.close();
+    }
+
+    public void deleteCar(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_CARS + " WHERE car_id=" + id);
+        db.close();
     }
 
     public Cursor getAllCars() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_CARS, null);
-    }
-
-    public long insertCar(String name, String description, double rentalCost) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_CAR_NAME, name);
-        values.put(COLUMN_CAR_DESCRIPTION, description);
-        values.put(COLUMN_CAR_RENTAL_COST, rentalCost);
-
-        long result = -1;
-        try {
-            result = db.insert(TABLE_CARS, null, values);
-            Log.d("DatabaseHelper", "Car inserted successfully: " + name);
-        } catch (Exception e) {
-            Log.e("DatabaseHelper", "Error inserting car: " + e.getMessage());
-        }
-        return result;
-    }
-
-
-    public int updateCar(int id, String name, String description, double rentalCost) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_CAR_NAME, name);
-        values.put(COLUMN_CAR_DESCRIPTION, description);
-        values.put(COLUMN_CAR_RENTAL_COST, rentalCost);
-        return db.update(TABLE_CARS, values, COLUMN_CAR_ID + "=?", new String[]{String.valueOf(id)});
-    }
-
-    public int deleteCar(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_CARS, COLUMN_CAR_ID + "=?", new String[]{String.valueOf(id)});
     }
 
     public Cursor getRentalHistory() {

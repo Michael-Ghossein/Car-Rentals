@@ -1,4 +1,4 @@
-package com.example.hw1;
+package com.example.exampractice;
 
 import android.database.Cursor;
 import android.os.Bundle;
