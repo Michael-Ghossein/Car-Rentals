@@ -1,6 +1,5 @@
 package com.example.exampractice;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,11 +12,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_RENTALS = "rental_history";
-    public static final String COLUMN_ID = "id";
     public static final String COLUMN_USER = "user_name";
     public static final String COLUMN_CARS = "rented_cars";
     public static final String COLUMN_DAYS = "rental_days";
     public static final String COLUMN_TOTAL_COST = "total_cost";
+
 
     public static final String TABLE_CARS = "car_inventory";
     public static final String COLUMN_CAR_ID = "car_id";
@@ -96,5 +95,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_RENTALS, null);
     }
+
 }
 
